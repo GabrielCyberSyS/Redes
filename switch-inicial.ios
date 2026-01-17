@@ -1,0 +1,58 @@
+
+SWITCH BASISC CONFIGURATION
+
+Switch> enable
+Switch# configure terminal
+Switch(config)# hostname S1
+S1(config)# enable secret class
+S1(config)# line console 0
+S1(config-line)# password cisco
+S1(config-line)# login
+S1(config-line)# line vty 0 15
+S1(config-line)# password cisco
+S1(config-line)# login
+S1(config-line)# exit
+S1(config)# service password-encryption
+S1(config)# banner motd #No unauthorized access allowed!#
+S1(config)# interface vlan1
+S1(config-if)# ip address 192.168.1.20 255.255.255.0
+S1(config-if)# no shutdown
+S1(config-if)# end
+S1# copy running-config startup-config
+Destination filename [startup-config]?
+Building configuration...
+[OK]
+S1#
+
+SWITCH VIRTUAL INTERFCE CONFIGURATION
+
+Sw-Floor-1# configure terminal
+Sw-Floor-1(config)# interface vlan 1
+Sw-Floor-1(config-if)# ip address 192.168.1.20 255.255.255.0
+Sw-Floor-1(config-if)# no shutdown
+Sw-Floor-1(config-if)# exit
+Sw-Floor-1(config)# ip default-gateway 192.168.1.1
+
+VLAN CREATION COMMANDS
+
+S1# configure terminal
+S1(config)# vlan 20
+S1(config-vlan)# name dados
+S1(config-vlan)# end
+
+VLAN PORT ASSIGNMENT COMMANDS
+
+S1# configure terminal
+S1(config)# interface fa0/6
+S1(config-if)# switchport mode access
+S1(config-if)# switchport access vlan 20
+S1(config-if)# end
+
+TRUNK CONFIGURATION COMMANDS
+
+S1(config)# interface fastEthernet 0/1
+S1(config-if)# switchport mode trunk
+S1(config-if)# switchport trunk native vlan 99
+S1(config-if)# switchport trunk allowed vlan 10, 20, 30, 99
+S1(config-if)# end
+S1#
