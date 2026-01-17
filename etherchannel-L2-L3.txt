@@ -1,0 +1,27 @@
+
+enable
+ configure terminal
+interface range gigabitEthernet 4/1, gigabitEthernet 5
+ channel-group 2 mode active
+ exit
+-------------------------------------------------------------
+- etherchannel L3
+configure terminal
+ interface gigabitethernet1/0/3
+  no switchport
+  channel-group 1 mode on
+
+interface gigabitethernet1/0/4
+  no switchport
+  channel group 1 mode on
+
+interface port-channel 1
+  ip address 1.1.1.1 255.255.255.0
+-----------------------------------------
+  verificar interface
+
+show interface summary
+
+show etherchannel load-balance
+
+port-channel load-balance
